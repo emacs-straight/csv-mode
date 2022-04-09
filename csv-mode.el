@@ -4,7 +4,7 @@
 
 ;; Author: "Francis J. Wright" <F.J.Wright@qmul.ac.uk>
 ;; Maintainer: emacs-devel@gnu.org
-;; Version: 1.18
+;; Version: 1.19
 ;; Package-Requires: ((emacs "24.1") (cl-lib "0.5"))
 ;; Keywords: convenience
 
@@ -839,7 +839,8 @@ the mode line after `csv-field-index-delay' seconds of Emacs idle time."
     (let ((start (point))
 	  (field 0))
       (beginning-of-line)
-      (while (< (point) start)
+      (while (and (<= (point) start)
+                  (not (eolp)))
 	(csv-end-of-field)
 	(unless (eolp)
 	  (forward-char 1))
